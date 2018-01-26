@@ -10,29 +10,32 @@ public class PlayerController : MonoBehaviour {
 	private bool isForward = true;
 	private bool isBackward = false;
 
-	[Header("La puissance du saut")]
+	[Header("The jump force")]
 	public float jumpForce = 5f;
 
-	[Header("Vitesse de déplacement horizontal")]
+	[Header("The horizontal move speed")]
 	public float moveSpeed = 5f;
 
+	[Header("Player ID (tmp must be set by the gameManager")]
+	public int id;
 
 	// Use this for initialization
 	void Start () {
 		this.controller = GetComponent<CharacterController> ();
+		this.controller.detectCollisions = false;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		// First we get the horizontal movement
-		movement.x = Input.GetAxis("Horizontal") * this.moveSpeed;
+		movement.x = Input.GetAxis("HorizontalP" + id) * this.moveSpeed;
 
 		// Then we get the vertical movement
 		if (controller.isGrounded) {
 			movement.y = 0;
 
 			// Jump
-			if (Input.GetButton("Jump") && this.controller.isGrounded) {
+			if (Input.GetButton("JumpP" + id) && this.controller.isGrounded) {
 				movement.y = jumpForce;
 			}
 
@@ -45,7 +48,7 @@ public class PlayerController : MonoBehaviour {
 
 	void WalkOrIdle(Vector2 movement) {
 		this.controller.Move(movement * Time.deltaTime);
-		float axis = Input.GetAxisRaw("Horizontal");
+		float axis = Input.GetAxis("HorizontalP" + id);
 
 		if (axis < 0) {
 			if (isForward) {
