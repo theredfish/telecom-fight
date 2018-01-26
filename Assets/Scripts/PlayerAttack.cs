@@ -1,0 +1,23 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlayerAttack : MonoBehaviour {
+
+    private GameObject player;
+
+
+    private void Start()
+    {
+        this.player = GameObject.FindGameObjectWithTag("player1");
+    }
+
+    // Update is called once per frame
+    void Update () {
+        if (Input.GetMouseButtonDown(0))
+        {
+            Debug.Log("Attack");
+
+        }
+     }
+}
