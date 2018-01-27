@@ -123,7 +123,7 @@ public class PlayerController : MonoBehaviour {
 
             if (Input.GetButtonDown("FireP" + id) && CanFire)
             {
-                Fire();
+                Fire(Input.GetAxis("VerticalP" + id));
                 Vector3 v3 = this.bulletCharge.transform.localScale;
                 v3.x = 0.0f;
                 this.bulletCharge.transform.localScale = v3;
@@ -163,12 +163,12 @@ public class PlayerController : MonoBehaviour {
 
     }
 
-    void Fire()
+    void Fire(float axis)
     {
         shootCooldown = shootingRate;
-
+        Debug.Log("AXIS:" + axis);
         var shotobject = Instantiate(projectile) as GameObject;
-
+        
         // Assign position
         shotobject.transform.position = transform.position;
 
@@ -180,10 +180,12 @@ public class PlayerController : MonoBehaviour {
 
         // Make the weapon shot always towards it
         MoveScript move = shotobject.GetComponent<MoveScript>();
+        
         if (move != null)
         {
             move.direction = (facingRight)? this.transform.right : -this.transform.right; // towards in 2D space is the right of the sprite
         }
+        move.impulsionDirection(axis);
     }
 
     public bool CanFire
