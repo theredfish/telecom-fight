@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour {
     private BoxCollider sword;
     private bool isAlive = true;
     private GameObject[] spawnPoints;
-
+    private static float MAXMOVEMENTY = -35.0f;
 
     [Header("The jump force")]
 	public float jumpForce = 5f;
@@ -58,7 +58,8 @@ public class PlayerController : MonoBehaviour {
             }
             else
             {
-                movement.y -= _gravity;
+                if(movement.y>=MAXMOVEMENTY)
+                    movement.y -= _gravity;
             }
 
             if (Input.GetButtonDown("AttackP" + id))
