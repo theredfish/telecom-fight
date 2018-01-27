@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour {
 	private bool isAlive = true;
 	private bool facingRight = true;
 	private bool grounded = false;
+    private bool wallCheck = false;
 	private float groundRadius = 0.2f;
 
 	[Header("Player ID (tmp must be set by the gameManager)")]
@@ -21,15 +22,22 @@ public class PlayerController : MonoBehaviour {
 	[Header("The jump force")]
     public float jumpForce = 700f;
 
+    [Header("Slide Speed")]
+    public float slideSpeed = -3f;
+
+    [Header("Jump Force Wall multiply by jump force")]
+    public Vector2 slideForceJump = new Vector2(1f,1.2f);
+
 	[Header("The gameobject to check if the player is grounded")]
     public Transform groudCheck;
+
+    [Header("The gameobject to check if the player is grounded on the side")]
+    public Transform groundSideCheck;
     
 	[Header("The gameobject on what the player is grounded")]
     public LayerMask whatIsGround;
 
     public static float MAXSPEEDY = -30f;
-	[Header("Player ID (tmp must be set by the gameManager")]
-	public int id;
 
     // Use this for initialization
     void Start () {
@@ -46,7 +54,7 @@ public class PlayerController : MonoBehaviour {
 
     private void Update() {
 		Vector2 jump = new Vector2 (0, jumpForce);
-
+       
         // Jump
 		if (Input.GetButtonDown("JumpP" + id) && grounded && isAlive)
         {
@@ -59,6 +67,15 @@ public class PlayerController : MonoBehaviour {
         grounded = Physics2D.OverlapCircle(this.groudCheck.position, this.groundRadius, this.whatIsGround);
         if (isAlive)
         {
+
+            if (!grounded)
+            {
+                wallCheck = Physics2D.OverlapCircle(this.groundSideCheck.position, this.groundRadius, this.whatIsGround);
+                if (wallCheck)
+                    {
+                        HandleWallSliding();
+                    }
+            }
             float move = Input.GetAxis("HorizontalP" + id);
 
             this.rb2d.velocity = (rb2d.velocity.y < MAXSPEEDY) ?  new Vector2(move * maxSpeed, MAXSPEEDY) : new Vector2(move * maxSpeed, this.rb2d.velocity.y);
@@ -105,5 +122,24 @@ public class PlayerController : MonoBehaviour {
         this.gameObject.transform.position = spawnPoints[randomSpawnPoint].transform.position;
         this.animator.ResetTrigger("dead");
 
+    }
+
+
+    void HandleWallSliding()
+    {
+        rb2d.velocity = new Vector2(rb2d.velocity.x, slideSpeed);
+        if (Input.GetButtonDown("JumpP" + id))
+        {
+            if (facingRight)
+            {
+                rb2d.AddForce(new Vector2(-slideForceJump.x, slideForceJump.y) * jumpForce);
+            }
+            else
+            {
+                rb2d.AddForce(slideForceJump*jumpForce);
+            }
+
+        }
+        
     }
 }
