@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour {
 	private bool facingRight = true;
 	private bool grounded = false;
 	private float groundRadius = 0.2f;
+    private bool doubleJump = false;
 
 	[Header("Player ID (tmp must be set by the gameManager)")]
 	public int id;
@@ -46,8 +47,9 @@ public class PlayerController : MonoBehaviour {
 		Vector2 jump = new Vector2 (0, jumpForce);
 
         // Jump
-		if (Input.GetButtonDown("JumpP" + id) && grounded && isAlive)
+		if (Input.GetButtonDown("JumpP" + id) && (grounded || !doubleJump) && isAlive )
         {
+            doubleJump = true;
 			this.rb2d.AddForce(jump);
         }
     }
@@ -55,6 +57,8 @@ public class PlayerController : MonoBehaviour {
     // Update is called once per frame
     void FixedUpdate() {
         grounded = Physics2D.OverlapCircle(this.groudCheck.position, this.groundRadius, this.whatIsGround);
+        if (grounded) doubleJump = false;
+
         if (isAlive)
         {
             float move = Input.GetAxis("HorizontalP" + id);
@@ -66,6 +70,7 @@ public class PlayerController : MonoBehaviour {
             } else if (move < 0 && facingRight) {
                 Flip();
             }
+
 
             if (Input.GetButtonDown("AttackP" + id))
             {

@@ -7,7 +7,6 @@ public class PlayerWarp : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D coll)
     {
-        Debug.Log(coll);
        WarpCollider warpCollider = coll.gameObject.GetComponent<WarpCollider>();
        if (warpCollider != null)
         {
