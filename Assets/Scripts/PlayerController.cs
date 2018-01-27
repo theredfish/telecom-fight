@@ -28,8 +28,6 @@ public class PlayerController : MonoBehaviour {
     public LayerMask whatIsGround;
 
     public static float MAXSPEEDY = -30f;
-	[Header("Player ID (tmp must be set by the gameManager")]
-	public int id;
 
     // Use this for initialization
     void Start () {
