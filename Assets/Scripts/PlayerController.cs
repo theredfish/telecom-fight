@@ -2,24 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour {
-	private float _gravity = 1.0f;
-	private CharacterController controller;
-	private Vector2 movement = Vector2.zero;
-	private bool isForward = true;
-	private bool isBackward = false;
-    private Animator animator;
-    private BoxCollider sword;
+
     private bool isAlive = true;
+
+    private Rigidbody2D rb2d;
+
+    private Animator animator;
+    private BoxCollider2D sword;
+
     private GameObject[] spawnPoints;
 
-
-    [Header("The jump force")]
-	public float jumpForce = 5f;
-
-	[Header("The horizontal move speed")]
-	public float moveSpeed = 5f;
+    public float maxSpeed = 10f;
+    public float jumpForce = 700f;
+    bool facingRight = true;
+    bool grounded = false;
+    public Transform groudCheck;
+    float groundRadius = 0.2f;
+    public LayerMask whatIsGround;
 
 	[Header("Player ID (tmp must be set by the gameManager")]
 	public int id;
@@ -28,72 +28,57 @@ public class PlayerController : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-		this.controller = GetComponent<CharacterController> ();
         this.animator = this.gameObject.GetComponent<Animator>();
-        this.sword = this.gameObject.GetComponentInChildren<BoxCollider>();
+        this.sword = this.GetComponentsInChildren<BoxCollider2D>()[1];
+        if (!this.sword.tag.Equals("sword"))
+            Debug.Log("Be carreful GetComponentsInChildren NOT working");
+
         this.spawnPoints = GameObject.FindGameObjectsWithTag("respawnPoint");
+        this.rb2d = this.gameObject.GetComponent<Rigidbody2D>();
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    private void Update()
+    {
+        // Jump
+        if (grounded && Input.GetButtonDown("JumpP" + id) && isAlive)
+        {
+            this.rb2d.AddForce(new Vector2(0, jumpForce));
+        }
+    }
+
+    // Update is called once per frame
+    void FixedUpdate()
+    {
+        grounded = Physics2D.OverlapCircle(this.groudCheck.position, this.groundRadius, this.whatIsGround);
+
         if (isAlive)
         {
-            // First we get the horizontal movement
-            movement.x = Input.GetAxis("HorizontalP" + id) * this.moveSpeed;
+            float move = Input.GetAxis("HorizontalP" + id);
+            this.rb2d.velocity = new Vector2(move * maxSpeed, this.rb2d.velocity.y);
 
-            if(id == 2)
-            Debug.Log(this.controller.isGrounded + " " + id);
-
-            // Then we get the vertical movement
-            if (controller.isGrounded)
+            if (move > 0 && !facingRight)
             {
-                movement.y = 0;
-
-                // Jump
-                if (Input.GetButtonDown("JumpP" + id))
-                {
-                    movement.y = jumpForce;
-                }
-
+                Flip();
             }
-            else
+            else if (move < 0 && facingRight)
             {
-                movement.y -= _gravity;
+                Flip();
             }
 
             if (Input.GetButtonDown("AttackP" + id))
             {
                 this.animator.SetTrigger("attack");
             }
-
-            Walk(movement);
-
-           
         }
     }
 
-	void Walk(Vector2 movement) {
-        this.controller.Move(movement * Time.deltaTime);
-		float axis = Input.GetAxis("HorizontalP" + id);
-
-		if (axis < 0) {
-			if (isForward) {
-				transform.Rotate(new Vector2(0, -180));
-				isForward = false;
-				isBackward = true;
-			}
-
-		} else if (axis > 0) {
-			if (isBackward) {
-				transform.Rotate (new Vector3 (0, 180));
-				isForward = true;
-				isBackward = false;
-			}
-		} else
-        {
-            //idle animation
-        }
-	}
+    void Flip()
+    {
+        facingRight = !facingRight;
+        Vector3 theScale = transform.localScale;
+        theScale.x *= -1;
+        transform.localScale = theScale;
+    }
 
     void Attack()
     {

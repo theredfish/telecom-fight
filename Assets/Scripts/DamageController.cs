@@ -9,11 +9,12 @@ public class DamageController : MonoBehaviour {
 
     private void Start()
     {
-        this.id = GetComponentInParent<PlayerController>().id;
+        //TODO Replace PlayerControllerRigid to PlayerController
+        this.id = this.gameObject.GetComponent<PlayerController>().id;
         this.animator = GetComponentInParent<Animator>();
     }
 
-    void OnTriggerEnter(Collider coll)
+    void OnTriggerEnter2D(Collider2D coll)
     {
         if (coll.tag.Equals("sword"))
         {
