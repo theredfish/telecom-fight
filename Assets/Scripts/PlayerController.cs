@@ -47,7 +47,7 @@ public class PlayerController : MonoBehaviour {
                 movement.y = 0;
 
                 // Jump
-                if (Input.GetButton("JumpP" + id) && this.controller.isGrounded)
+                if (Input.GetButtonDown("JumpP" + id) && this.controller.isGrounded)
                 {
                     movement.y = jumpForce;
                 }
@@ -58,12 +58,14 @@ public class PlayerController : MonoBehaviour {
                 movement.y -= _gravity;
             }
 
-            Walk(movement);
-
-            if (Input.GetButton("AttackP" + id))
+            if (Input.GetButtonDown("AttackP" + id))
             {
                 this.animator.SetTrigger("attack");
             }
+
+            Walk(movement);
+
+           
         }
     }
 
@@ -84,7 +86,10 @@ public class PlayerController : MonoBehaviour {
 				isForward = true;
 				isBackward = false;
 			}
-		} 
+		} else
+        {
+            //idle animation
+        }
 	}
 
     void Attack()
