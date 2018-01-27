@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour {
     public Transform groudCheck;
     float groundRadius = 0.2f;
     public LayerMask whatIsGround;
-
+    public static float MAXSPEEDY = -30f;
 	[Header("Player ID (tmp must be set by the gameManager")]
 	public int id;
 
@@ -50,11 +50,11 @@ public class PlayerController : MonoBehaviour {
     void FixedUpdate()
     {
         grounded = Physics2D.OverlapCircle(this.groudCheck.position, this.groundRadius, this.whatIsGround);
-
         if (isAlive)
         {
             float move = Input.GetAxis("HorizontalP" + id);
-            this.rb2d.velocity = new Vector2(move * maxSpeed, this.rb2d.velocity.y);
+
+            this.rb2d.velocity = (rb2d.velocity.y < MAXSPEEDY) ?  new Vector2(move * maxSpeed, MAXSPEEDY) : new Vector2(move * maxSpeed, this.rb2d.velocity.y);
 
             if (move > 0 && !facingRight)
             {
@@ -64,6 +64,7 @@ public class PlayerController : MonoBehaviour {
             {
                 Flip();
             }
+
 
             if (Input.GetButtonDown("AttackP" + id))
             {
