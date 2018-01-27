@@ -20,15 +20,23 @@ public class DamageController : MonoBehaviour {
             PlayerController ennemy = coll.gameObject.GetComponentInParent<PlayerController>();
             if (ennemy != null && ennemy.id != id)
             {
+                updateScore(coll.gameObject);
                 Dead(ennemy.id);
             }
+        }
+    }
+    public void updateScore(GameObject player)
+    {
+        PlayerScore pscore = player.GetComponent<PlayerScore>();
+        if (pscore != null)
+        {
+            pscore.getOneKill();
         }
     }
 
     public void Dead(int ennemyID)
     {
         Debug.Log("Player " + id + " kill by Player " + ennemyID);
-        //Add scoring
         this.animator.SetTrigger("dead");
     }
 }
