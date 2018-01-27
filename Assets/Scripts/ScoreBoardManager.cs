@@ -18,7 +18,7 @@ public class ScoreBoardManager : MonoBehaviour {
 
 		// Display score
 		for(int i = 0; i < players.Length; i++) {
-			int p_score = players[i].GetComponent<PlayerScore> ().getScore();
+			int p_score = players[i].GetComponent<PlayerScore> ().GetScore();
 			scoreLabels [i].text = p_score.ToString();
 			scoreLabels [i].enabled = true;
 		}
@@ -40,9 +40,10 @@ public class ScoreBoardManager : MonoBehaviour {
 	void SortPlayersByScore() {
 		for (int i = 0; i < players.Length-1; i++) {
 			GameObject current_player = players [i];
-			int current_score = current_player.GetComponent<PlayerScore>().getScore();
+			PlayerScore player_score = current_player.GetComponent<PlayerScore> ();
+			int current_score = player_score.GetScore();
 			int j = i;
-			int next_score = players [j+1].GetComponent<PlayerScore> ().getScore ();
+			int next_score = players [j+1].GetComponent<PlayerScore> ().GetScore ();
 
 
 			while (j < players.Length-1 && next_score > current_score) {

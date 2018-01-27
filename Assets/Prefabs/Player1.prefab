@@ -218,10 +218,15 @@ MonoBehaviour:
   id: 1
   maxSpeed: 10
   jumpForce: 1500
+  slideSpeed: -3
+  slideForceJump: {x: 1, y: 1.2}
   groudCheck: {fileID: 4275195858061524}
+  groundSideCheck: {fileID: 0}
   whatIsGround:
     serializedVersion: 2
     m_Bits: 4096
+  shootingRate: 2
+  projectile: {fileID: 0}
 --- !u!114 &114686730218549234
 MonoBehaviour:
   m_ObjectHideFlags: 1

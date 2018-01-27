@@ -203,7 +203,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffa4c6922efa52e4fbefa41d7c2be431, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  score: 10
+  score: 0
 --- !u!114 &114126909876025996
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -229,10 +229,15 @@ MonoBehaviour:
   id: 2
   maxSpeed: 10
   jumpForce: 1000
+  slideSpeed: -3
+  slideForceJump: {x: 1, y: 1.2}
   groudCheck: {fileID: 4254943229301048}
+  groundSideCheck: {fileID: 0}
   whatIsGround:
     serializedVersion: 2
     m_Bits: 4096
+  shootingRate: 2
+  projectile: {fileID: 0}
 --- !u!212 &212166836545301460
 SpriteRenderer:
   m_ObjectHideFlags: 1

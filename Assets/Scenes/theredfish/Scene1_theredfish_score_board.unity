@@ -562,14 +562,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   players:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 1774850066067954, guid: 5bd98be4e06f3c641a5945dae8d0c48d, type: 2}
+  - {fileID: 1073760309648550, guid: 560584320dea2d346a33b155e08a918b, type: 2}
   scoreLabels:
   - {fileID: 1202532027}
   - {fileID: 442130193}
+  - {fileID: 1322256759}
+  - {fileID: 1139951277}
   podiumPositions:
   - {fileID: 191529750}
   - {fileID: 1657925733}
+  - {fileID: 1228966367}
+  - {fileID: 1610341817}
 --- !u!4 &558136361
 Transform:
   m_ObjectHideFlags: 0

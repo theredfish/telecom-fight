@@ -38,7 +38,7 @@ public class DamageController : MonoBehaviour {
         PlayerScore pscore = player.GetComponent<PlayerScore>();
         if (pscore != null)
         {
-            pscore.getOneKill();
+            pscore.GetOneKill();
         }
     }
 
