@@ -10,7 +10,7 @@ public class PlayerRespawn : MonoBehaviour {
     void SpawnAPlayer(GameObject player)
     {
         randomSpawnPoint = Random.Range(0, spawnPoints.Length);
-        player.transform.position = spawnPoints[randomSpawnPoint].position;
+        this.gameObject.transform.position = spawnPoints[randomSpawnPoint].position;
     }
 }
 

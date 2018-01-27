@@ -9,8 +9,13 @@ public class PlayerController : MonoBehaviour {
 	private Vector2 movement = Vector2.zero;
 	private bool isForward = true;
 	private bool isBackward = false;
+    private Animator animator;
+    private BoxCollider sword;
+    private bool canControl = true;
+    private GameObject[] spawnPoints;
 
-	[Header("The jump force")]
+
+    [Header("The jump force")]
 	public float jumpForce = 5f;
 
 	[Header("The horizontal move speed")]
@@ -19,35 +24,51 @@ public class PlayerController : MonoBehaviour {
 	[Header("Player ID (tmp must be set by the gameManager")]
 	public int id;
 
-	// Use this for initialization
-	void Start () {
+
+
+    // Use this for initialization
+    void Start () {
 		this.controller = GetComponent<CharacterController> ();
-		this.controller.detectCollisions = false;
-	}
+        this.animator = this.gameObject.GetComponent<Animator>();
+        this.sword = this.gameObject.GetComponentInChildren<BoxCollider>();
+        this.spawnPoints = GameObject.FindGameObjectsWithTag("respawnPoint");
+    }
 	
 	// Update is called once per frame
 	void Update () {
-		// First we get the horizontal movement
-		movement.x = Input.GetAxis("HorizontalP" + id) * this.moveSpeed;
+        if (canControl)
+        {
+            // First we get the horizontal movement
+            movement.x = Input.GetAxis("HorizontalP" + id) * this.moveSpeed;
 
-		// Then we get the vertical movement
-		if (controller.isGrounded) {
-			movement.y = 0;
+            // Then we get the vertical movement
+            if (controller.isGrounded)
+            {
+                movement.y = 0;
 
-			// Jump
-			if (Input.GetButton("JumpP" + id) && this.controller.isGrounded) {
-				movement.y = jumpForce;
-			}
+                // Jump
+                if (Input.GetButton("JumpP" + id) && this.controller.isGrounded)
+                {
+                    movement.y = jumpForce;
+                }
 
-		} else {
-			movement.y -= _gravity;
-		}
+            }
+            else
+            {
+                movement.y -= _gravity;
+            }
 
-		WalkOrIdle (movement);
-	}
+            Walk(movement);
 
-	void WalkOrIdle(Vector2 movement) {
-		this.controller.Move(movement * Time.deltaTime);
+            if (Input.GetButton("AttackP" + id))
+            {
+                this.animator.SetTrigger("attack");
+            }
+        }
+    }
+
+	void Walk(Vector2 movement) {
+        this.controller.Move(movement * Time.deltaTime);
 		float axis = Input.GetAxis("HorizontalP" + id);
 
 		if (axis < 0) {
@@ -63,9 +84,35 @@ public class PlayerController : MonoBehaviour {
 				isForward = true;
 				isBackward = false;
 			}
-		} else {
-			// idle animation
-		}
+		} 
 	}
 
+    void Attack()
+    {
+        this.sword.enabled = true;
+    }
+
+    void StopAttack()
+    {
+        this.sword.enabled = false;
+        this.animator.ResetTrigger("attack");
+    }
+
+    void DesactivateControl()
+    {
+       this.canControl = false;
+    }
+
+    void ActivateControl()
+    {
+        this.canControl = true;
+    }
+
+    void Respawn()
+    {
+        int randomSpawnPoint = Random.Range(0, spawnPoints.Length);
+        this.gameObject.transform.position = spawnPoints[randomSpawnPoint].transform.position;
+        this.animator.ResetTrigger("dead");
+
+    }
 }

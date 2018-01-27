@@ -9,6 +9,7 @@ TagManager:
   - player3
   - player4
   - sword
+  - respawnPoint
   layers:
   - Default
   - TransparentFX
