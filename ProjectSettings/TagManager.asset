@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - player1
+  - player2
+  - player3
+  - player4
+  - sword
   layers:
   - Default
   - TransparentFX

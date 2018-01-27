@@ -4,20 +4,33 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour {
 
-    private GameObject player;
-
+    private Animator animator;
+    private BoxCollider2D sword;
 
     private void Start()
     {
-        this.player = GameObject.FindGameObjectWithTag("player1");
+        this.animator = this.gameObject.GetComponent<Animator>();
+        this.sword = this.gameObject.GetComponentInChildren<BoxCollider2D>();
     }
 
     // Update is called once per frame
-    void Update () {
+    void Update()
+    {
         if (Input.GetMouseButtonDown(0))
         {
-            Debug.Log("Attack");
-
+            this.animator.SetTrigger("attack");
         }
-     }
+    }
+
+
+    void Attack()
+    {
+        this.sword.enabled = true;
+    }
+
+    void StopAttack()
+    {
+        this.sword.enabled = false;
+        this.animator.ResetTrigger("attack");
+    }
 }
