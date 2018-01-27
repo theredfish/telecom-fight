@@ -9,7 +9,6 @@ public class DamageController : MonoBehaviour {
 
     private void Start()
     {
-        //TODO Replace PlayerControllerRigid to PlayerController
         this.id = this.gameObject.GetComponent<PlayerController>().id;
         this.animator = GetComponentInParent<Animator>();
     }

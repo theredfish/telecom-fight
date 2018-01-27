@@ -197,4 +197,8 @@ public class PlayerController : MonoBehaviour {
         }
         
     }
+
+	public void SetAlive(bool heartbit) {
+		this.isAlive = heartbit;
+	}
 }

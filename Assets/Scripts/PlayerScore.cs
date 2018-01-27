@@ -11,7 +11,7 @@ public class PlayerScore : MonoBehaviour {
 
     public void getOneKill()
     {
-        score += 1;
+        score++;
     }
 
     public int getScore()
