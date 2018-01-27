@@ -45,7 +45,7 @@ public class PlayerController : MonoBehaviour {
 
     public GameObject projectile;
 
-    public Transform bulletCharge;
+    private Transform bulletCharge;
 
     public AudioSource jumpAudio, attackAudio, respawnAudio;
 
@@ -57,6 +57,8 @@ public class PlayerController : MonoBehaviour {
 		this.rb2d = this.gameObject.GetComponent<Rigidbody2D>();
         this.animator = this.gameObject.GetComponent<Animator>();
         this.sword = this.GetComponentsInChildren<BoxCollider2D>()[1];
+
+        this.bulletCharge = this.GetComponentsInChildren<SpriteRenderer>()[1].transform;
 
         this.scaleBulletMaxX = this.bulletCharge.transform.localScale.x;
         if (!this.sword.tag.Equals ("sword")) {
@@ -108,8 +110,6 @@ public class PlayerController : MonoBehaviour {
             float move = Input.GetAxis("HorizontalP" + id);
 
             if (Mathf.Abs(move) < 0.3f) move = 0;
-            if(id == 3)
-            Debug.Log(move);
 
             this.rb2d.velocity = (rb2d.velocity.y < MAXSPEEDY) ?  new Vector2(move * maxSpeed, MAXSPEEDY) : new Vector2(move * maxSpeed, this.rb2d.velocity.y);
 
@@ -173,7 +173,6 @@ public class PlayerController : MonoBehaviour {
     void Fire(float axis)
     {
         shootCooldown = shootingRate;
-        Debug.Log("AXIS:" + axis);
         var shotobject = Instantiate(projectile) as GameObject;
         
         // Assign position

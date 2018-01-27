@@ -13,20 +13,19 @@ public class MoveScript : MonoBehaviour
     public Vector2 direction = new Vector2(-1, 1);
     private Rigidbody2D rigidbodyComponent;
 
+
     void Start()
     {
         rigidbodyComponent = GetComponent<Rigidbody2D>();
         rigidbodyComponent.velocity = (new Vector2(speed.x * direction.x,0));
-        Debug.Log(impulsion);
         rigidbodyComponent.AddRelativeForce(new Vector2(0, impulsion));
     }
 
     public void impulsionDirection(float axis)
     {
-        Debug.Log("impulsiondirection"+axis);
-        if(axis>0)
+        if(axis>0.3f)
             impulsion = impulsiontop;
-        else if (axis==0)
+        else if (axis>-0.3f)
         {
             impulsion = impulsionmiddle;
         }
