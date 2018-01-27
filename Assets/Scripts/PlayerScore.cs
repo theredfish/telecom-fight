@@ -9,12 +9,12 @@ public class PlayerScore : MonoBehaviour {
         score = 0;
 	}
 
-    public void getOneKill()
+    public void GetOneKill()
     {
-        score += 1;
+        score++;
     }
 
-    public int getScore()
+    public int GetScore()
     {
         return this.score;
     }

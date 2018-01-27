@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour {
     private bool wallCheck = false;
 	private float groundRadius = 0.2f;
     private bool doubleJump = false;
-
+    private float scaleBulletMaxX;
 	[Header("Player ID (tmp must be set by the gameManager)")]
 	public int id;
 
@@ -42,7 +42,10 @@ public class PlayerController : MonoBehaviour {
 
     [Header("Projectile")]
     public float shootingRate = 2f;
+
     public GameObject projectile;
+
+    public Transform bulletCharge;
 
     private float shootCooldown;
 
@@ -52,8 +55,9 @@ public class PlayerController : MonoBehaviour {
 		this.rb2d = this.gameObject.GetComponent<Rigidbody2D>();
         this.animator = this.gameObject.GetComponent<Animator>();
         this.sword = this.GetComponentsInChildren<BoxCollider2D>()[1];
-
-		if (!this.sword.tag.Equals ("sword")) {
+        Debug.Log(bulletCharge);
+        this.scaleBulletMaxX = this.bulletCharge.transform.localScale.x;
+        if (!this.sword.tag.Equals ("sword")) {
 			Debug.Log ("Be carreful GetComponentsInChildren NOT working");
 		}
 
@@ -75,6 +79,9 @@ public class PlayerController : MonoBehaviour {
         if (shootCooldown > 0)
         {
             shootCooldown -= Time.deltaTime;
+            Vector3 v3 = this.bulletCharge.transform.localScale;
+            v3.x = shootCooldown < 0.0f ?  scaleBulletMaxX : (1.0f - (shootCooldown / shootingRate)) * scaleBulletMaxX;
+            this.bulletCharge.transform.localScale = v3;
         }
     }
 
@@ -113,6 +120,9 @@ public class PlayerController : MonoBehaviour {
             if (Input.GetButtonDown("FireP" + id) && CanFire)
             {
                 Fire();
+                Vector3 v3 = this.bulletCharge.transform.localScale;
+                v3.x = 0.0f;
+                this.bulletCharge.transform.localScale = v3;
             }
         }
     }
@@ -197,4 +207,8 @@ public class PlayerController : MonoBehaviour {
         }
         
     }
+
+	public void SetAlive(bool heartbit) {
+		this.isAlive = heartbit;
+	}
 }

@@ -9,7 +9,6 @@ public class DamageController : MonoBehaviour {
 
     private void Start()
     {
-        //TODO Replace PlayerControllerRigid to PlayerController
         this.id = this.gameObject.GetComponent<PlayerController>().id;
         this.animator = GetComponentInParent<Animator>();
     }
@@ -39,7 +38,7 @@ public class DamageController : MonoBehaviour {
         PlayerScore pscore = player.GetComponent<PlayerScore>();
         if (pscore != null)
         {
-            pscore.getOneKill();
+            pscore.GetOneKill();
         }
     }
 
