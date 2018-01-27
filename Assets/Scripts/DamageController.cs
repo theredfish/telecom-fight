@@ -6,6 +6,9 @@ public class DamageController : MonoBehaviour {
 
     private int id;
     private Animator animator;
+
+    public AudioSource deathAudio;
+
     private PlayerController playerController;
 
     private void Start()
@@ -48,5 +51,6 @@ public class DamageController : MonoBehaviour {
     {
         Debug.Log("Player " + id + " kill by Player " + ennemyID);
         this.animator.SetTrigger("dead");
+        deathAudio.Play();
     }
 }
