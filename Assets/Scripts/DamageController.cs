@@ -25,7 +25,15 @@ public class DamageController : MonoBehaviour {
                 Dead(ennemy.id);
             }
         }
+        ShotScript shot = coll.gameObject.GetComponent<ShotScript>();
+        if (shot != null && this.id != shot.id )
+        {
+            updateScore(shot.gameObject);
+            Dead(shot.id);
+            Destroy(shot.gameObject);
+        }
     }
+
     public void updateScore(GameObject player)
     {
         PlayerScore pscore = player.GetComponent<PlayerScore>();

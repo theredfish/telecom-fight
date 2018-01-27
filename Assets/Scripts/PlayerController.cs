@@ -40,6 +40,13 @@ public class PlayerController : MonoBehaviour {
 
     public static float MAXSPEEDY = -30f;
 
+    [Header("Projectile")]
+    public float shootingRate = 2f;
+    public GameObject projectile;
+
+    private float shootCooldown;
+
+
     // Use this for initialization
     void Start () {
 		this.rb2d = this.gameObject.GetComponent<Rigidbody2D>();
@@ -50,6 +57,7 @@ public class PlayerController : MonoBehaviour {
 			Debug.Log ("Be carreful GetComponentsInChildren NOT working");
 		}
 
+        this.shootCooldown = 0f;
         this.spawnPoints = GameObject.FindGameObjectsWithTag("respawnPoint");
     }
 
@@ -61,6 +69,12 @@ public class PlayerController : MonoBehaviour {
         {
             doubleJump = true;
 			this.rb2d.AddForce(jump);
+        }
+
+        //CoolDown shoot
+        if (shootCooldown > 0)
+        {
+            shootCooldown -= Time.deltaTime;
         }
     }
 
@@ -95,6 +109,11 @@ public class PlayerController : MonoBehaviour {
             {
                 this.animator.SetTrigger("attack");
             }
+
+            if (Input.GetButtonDown("FireP" + id) && CanFire)
+            {
+                Fire();
+            }
         }
     }
 
@@ -127,6 +146,37 @@ public class PlayerController : MonoBehaviour {
         this.gameObject.transform.position = spawnPoints[randomSpawnPoint].transform.position;
         this.animator.ResetTrigger("dead");
 
+    }
+
+    void Fire()
+    {
+        shootCooldown = shootingRate;
+
+        var shotobject = Instantiate(projectile) as GameObject;
+
+        // Assign position
+        shotobject.transform.position = transform.position;
+
+        ShotScript shot = shotobject.GetComponent<ShotScript>();
+        if (shot != null)
+        {
+            shot.SetPlayerShoot(this.id);
+        }
+
+        // Make the weapon shot always towards it
+        MoveScript move = shotobject.GetComponent<MoveScript>();
+        if (move != null)
+        {
+            move.direction = (facingRight)? this.transform.right : -this.transform.right; // towards in 2D space is the right of the sprite
+        }
+    }
+
+    public bool CanFire
+    {
+        get
+        {
+            return shootCooldown <= 0f;
+        }
     }
 
 
