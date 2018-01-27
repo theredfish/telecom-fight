@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour {
 	private bool isBackward = false;
     private Animator animator;
     private BoxCollider sword;
-    private bool canControl = true;
+    private bool isAlive = true;
     private GameObject[] spawnPoints;
 
 
@@ -36,10 +36,13 @@ public class PlayerController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (canControl)
+        if (isAlive)
         {
             // First we get the horizontal movement
             movement.x = Input.GetAxis("HorizontalP" + id) * this.moveSpeed;
+
+            if(id == 2)
+            Debug.Log(this.controller.isGrounded + " " + id);
 
             // Then we get the vertical movement
             if (controller.isGrounded)
@@ -47,7 +50,7 @@ public class PlayerController : MonoBehaviour {
                 movement.y = 0;
 
                 // Jump
-                if (Input.GetButtonDown("JumpP" + id) && this.controller.isGrounded)
+                if (Input.GetButtonDown("JumpP" + id))
                 {
                     movement.y = jumpForce;
                 }
@@ -105,12 +108,12 @@ public class PlayerController : MonoBehaviour {
 
     void DesactivateControl()
     {
-       this.canControl = false;
+       this.isAlive = false;
     }
 
     void ActivateControl()
     {
-        this.canControl = true;
+        this.isAlive = true;
     }
 
     void Respawn()
