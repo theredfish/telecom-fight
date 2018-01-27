@@ -6,11 +6,13 @@ public class DamageController : MonoBehaviour {
 
     private int id;
     private Animator animator;
+    private PlayerController playerController;
 
     private void Start()
     {
         this.id = this.gameObject.GetComponent<PlayerController>().id;
         this.animator = GetComponentInParent<Animator>();
+        this.playerController = this.gameObject.GetComponentInParent<PlayerController>();
     }
 
     void OnTriggerEnter2D(Collider2D coll)
@@ -18,14 +20,14 @@ public class DamageController : MonoBehaviour {
         if (coll.tag.Equals("sword"))
         {
             PlayerController ennemy = coll.gameObject.GetComponentInParent<PlayerController>();
-            if (ennemy != null && ennemy.id != id)
+            if (ennemy != null && ennemy.id != id && ennemy.isAlive && this.playerController.isAlive)
             {
                 updateScore(coll.gameObject);
                 Dead(ennemy.id);
             }
         }
         ShotScript shot = coll.gameObject.GetComponent<ShotScript>();
-        if (shot != null && this.id != shot.id )
+        if (shot != null && this.id != shot.id && this.playerController.isAlive)
         {
             updateScore(shot.gameObject);
             Dead(shot.id);

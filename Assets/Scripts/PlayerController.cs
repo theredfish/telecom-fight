@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour {
     private Animator animator;
     private BoxCollider2D sword;
     private GameObject[] spawnPoints;
-	private bool isAlive = true;
+	public bool isAlive = true;
 	private bool facingRight = true;
 	private bool grounded = false;
     private bool wallCheck = false;
@@ -55,7 +55,7 @@ public class PlayerController : MonoBehaviour {
 		this.rb2d = this.gameObject.GetComponent<Rigidbody2D>();
         this.animator = this.gameObject.GetComponent<Animator>();
         this.sword = this.GetComponentsInChildren<BoxCollider2D>()[1];
-        Debug.Log(bulletCharge);
+
         this.scaleBulletMaxX = this.bulletCharge.transform.localScale.x;
         if (!this.sword.tag.Equals ("sword")) {
 			Debug.Log ("Be carreful GetComponentsInChildren NOT working");
@@ -88,11 +88,12 @@ public class PlayerController : MonoBehaviour {
     // Update is called once per frame
     void FixedUpdate() {
         grounded = Physics2D.OverlapCircle(this.groudCheck.position, this.groundRadius, this.whatIsGround);
+        animator.SetBool("fall", !grounded);
+
         if (grounded) doubleJump = false;
 
         if (isAlive)
         {
-
             if (!grounded)
             {
                 wallCheck = Physics2D.OverlapCircle(this.groundSideCheck.position, this.groundRadius, this.whatIsGround);
@@ -103,7 +104,13 @@ public class PlayerController : MonoBehaviour {
             }
             float move = Input.GetAxis("HorizontalP" + id);
 
+            if (Mathf.Abs(move) < 0.3f) move = 0;
+            if(id == 3)
+            Debug.Log(move);
+
             this.rb2d.velocity = (rb2d.velocity.y < MAXSPEEDY) ?  new Vector2(move * maxSpeed, MAXSPEEDY) : new Vector2(move * maxSpeed, this.rb2d.velocity.y);
+
+            animator.SetBool("walk", move != 0);
 
             if (move > 0 && !facingRight) {
                 Flip();
