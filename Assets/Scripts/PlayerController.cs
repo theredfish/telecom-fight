@@ -47,6 +47,8 @@ public class PlayerController : MonoBehaviour {
 
     public Transform bulletCharge;
 
+    public AudioSource jumpAudio, attackAudio, respawnAudio;
+
     private float shootCooldown;
 
 
@@ -73,6 +75,7 @@ public class PlayerController : MonoBehaviour {
         {
             doubleJump = true;
 			this.rb2d.AddForce(jump);
+            jumpAudio.Play();
         }
 
         //CoolDown shoot
@@ -115,6 +118,7 @@ public class PlayerController : MonoBehaviour {
             if (Input.GetButtonDown("AttackP" + id))
             {
                 this.animator.SetTrigger("attack");
+                attackAudio.Play();
             }
 
             if (Input.GetButtonDown("FireP" + id) && CanFire)
@@ -155,6 +159,7 @@ public class PlayerController : MonoBehaviour {
         int randomSpawnPoint = Random.Range(0, spawnPoints.Length);
         this.gameObject.transform.position = spawnPoints[randomSpawnPoint].transform.position;
         this.animator.ResetTrigger("dead");
+        respawnAudio.Play();
 
     }
 
@@ -195,6 +200,7 @@ public class PlayerController : MonoBehaviour {
         rb2d.velocity = new Vector2(rb2d.velocity.x, slideSpeed);
         if (Input.GetButtonDown("JumpP" + id))
         {
+            jumpAudio.Play();
             if (facingRight)
             {
                 rb2d.AddForce(new Vector2(-slideForceJump.x, slideForceJump.y) * jumpForce);
