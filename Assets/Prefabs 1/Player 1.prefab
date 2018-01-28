@@ -170,6 +170,7 @@ GameObject:
   - component: {fileID: 114724524500394952}
   - component: {fileID: 114955130736520424}
   - component: {fileID: 82021036183470196}
+  - component: {fileID: 114350909326662986}
   m_Layer: 8
   m_Name: Player 1
   m_TagString: Player
@@ -540,6 +541,18 @@ MonoBehaviour:
   jumpAudio: {fileID: 8300000, guid: f1c050bd7754aac4e9f59b1275e8506f, type: 3}
   attackAudio: {fileID: 8300000, guid: 30f28391c34661e4aa657b0fa0fc466e, type: 3}
   respawnAudio: {fileID: 8300000, guid: 48f6a7aba003a424b840629dd8ee3c8e, type: 3}
+--- !u!114 &114350909326662986
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1926925080653408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffa4c6922efa52e4fbefa41d7c2be431, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  score: 0
 --- !u!114 &114724524500394952
 MonoBehaviour:
   m_ObjectHideFlags: 1
