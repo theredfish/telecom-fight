@@ -38,7 +38,7 @@ public class PlayerPanel : MonoBehaviour {
 	 * used to know the controller (like HorizontalP1).
 	 */
 	public void AssignController(int controller) {
-		Debug.Log ("This player will be the number " + controller);
+		//Debug.Log ("This player will be the number " + controller);
 		this.hasControllerAssigned = true;
 		player.id = controller;
 		this.playerSkin.enabled = true;

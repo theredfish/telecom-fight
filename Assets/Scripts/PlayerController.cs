@@ -179,12 +179,16 @@ public class PlayerController : MonoBehaviour {
         this.sword.enabled = true;
     }
 
-    void StopAttack() {
+    public void StopAttack() {
         this.sword.enabled = false;
+    }
+
+    public void ResetTriggerAttack()
+    {
         this.animator.ResetTrigger("attack");
     }
 
-    void DesactivateControl() {
+    public void DesactivateControl() {
        this.isAlive = false;
     }
 
@@ -193,6 +197,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     void Respawn() {
+        ResetTriggerAttack();
         int randomSpawnPoint = Random.Range(0, spawnPoints.Length);
         this.gameObject.transform.position = spawnPoints[randomSpawnPoint].transform.position;
         this.animator.ResetTrigger("dead");

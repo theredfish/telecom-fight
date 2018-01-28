@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour {
 		foreach (PlayerController player in players) {
 			Instantiate (player);
 		}
-		Debug.Log("The secene is loaded, now we need to instantiate players");
+		//Debug.Log("The secene is loaded, now we need to instantiate players");
 	}
 
 	public void StartGame() {
@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour {
 		for (int i = 0; i < playerPanels.Length; i++) {
 			PlayerPanel playerPanel = playerPanels [i];
 			PlayerController player = playerPanel.player;
-			Debug.Log ("player panel value : " + playerPanel.player);
+			//Debug.Log ("player panel value : " + playerPanel.player);
 
 			if (playerPanel.HasControllerAssigned() && !this.players.Contains(player)) {
 				this.players.Add (player);
@@ -59,7 +59,7 @@ public class GameManager : MonoBehaviour {
 
 		// load the first scene
 		// TODO : change the first scene name
-		LoadScene("Arene1");
+		LoadScene("Arene2");
 	}
 
 	public void Retry() {

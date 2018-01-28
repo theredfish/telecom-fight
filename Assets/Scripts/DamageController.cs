@@ -29,6 +29,7 @@ public class DamageController : MonoBehaviour {
             PlayerController ennemy = coll.gameObject.GetComponentInParent<PlayerController>();
             if (ennemy != null && ennemy.id != id && ennemy.isAlive && this.playerController.isAlive && !this.playerController.isImmortal())
             {
+                Debug.Log("dead : " + this.playerController.id);
                 updateScore(coll.gameObject);
                 Dead(ennemy.id);
             }
@@ -53,8 +54,10 @@ public class DamageController : MonoBehaviour {
 
     public void Dead(int ennemyID)
     {
+        this.playerController.DesactivateControl();
         //Debug.Log("Player " + ennemyID  + " kill Player " + id);
         this.playerController.life--;
+        this.playerController.StopAttack();
         this.lifes[this.playerController.life].SetActive(false);
         this.animator.SetTrigger("dead");
         this.audioSource.clip = deathAudio;
