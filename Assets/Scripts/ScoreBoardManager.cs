@@ -21,7 +21,8 @@ public class ScoreBoardManager : MonoBehaviour {
 		// Display score
 		for(int i = 0; i < players.Length; i++) {
 			int p_score = players[i].GetComponent<PlayerScore> ().GetScore();
-			scoreLabels [i].text = "Joueur " + i + " : " + p_score + " points";
+			int playerNumberLabel = i + 1;
+			scoreLabels [i].text = "Joueur " + playerNumberLabel + " : " + p_score + " points";
 			scoreLabels [i].enabled = true;
 		}
 
