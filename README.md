@@ -7,4 +7,4 @@ Telecom Fight is a game developed during the Global Game Jam 2018. Have fun!
 - Julian Didier : Développeur
 - Kevin Keovilay : Développeur 
 - Pierre DOUET : Graphiste
-
+- Geoffroy : Sound Designer
