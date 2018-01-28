@@ -80,6 +80,7 @@ public class PlayerController : MonoBehaviour {
 
         this.shootCooldown = 0f;
         this.spawnPoints = GameObject.FindGameObjectsWithTag("respawnPoint");
+		DontDestroyOnLoad (gameObject);
     }
 
     private void Update() {

@@ -15,8 +15,10 @@ public class PlayerPanel : MonoBehaviour {
 	[Header("The player skin")]
 	public Image playerSkin;
 
+	[Header("The start button to notify when a player is selected")]
+	public StartButton startButton;
+
 	void Awake() {
-		Debug.Log (player);
 		playerSkin.enabled = false;
 	}
 
@@ -40,6 +42,8 @@ public class PlayerPanel : MonoBehaviour {
 		this.hasControllerAssigned = true;
 		player.id = controller;
 		this.playerSkin.enabled = true;
+
+		startButton.CountNewPlayer ();
 	}
 
 	public bool HasControllerAssigned() {

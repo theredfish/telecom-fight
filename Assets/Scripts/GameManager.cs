@@ -1,10 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using System.Linq;
 
 public class GameManager : MonoBehaviour {
 	private GameManager instance = null;
 	private int level = 0;
+	private PlayerPanel[] playerPanels;
+	private List<PlayerController> players;
+	private AssetBundle scenes;
 
 	void Awake() {
 		if (instance == null) {
@@ -14,15 +19,42 @@ public class GameManager : MonoBehaviour {
 		}
 
 		DontDestroyOnLoad (gameObject);
-		StartGame ();
+
+		players = new List<PlayerController> ();
 	}
 
-	void LoadScene() {
-		
+	public void LoadScene(string sceneName) {
+		SceneManager.LoadScene(sceneName);
 	}
 
-	void StartGame() {
-		// instantiate prefabs and first scene
+	void OnSceneLoaded(Scene scene, LoadSceneMode sceneMode) {
+		foreach (PlayerController player in players) {
+			Instantiate (player);
+		}
+		Debug.Log("The secene is loaded, now we need to instantiate players");
+	}
+
+	public void StartGame() {
+		playerPanels = FindObjectsOfType<PlayerPanel> ().ToArray ();
+
+		// find panels with an assigned controller
+		// set players attached to these panels
+		for (int i = 0; i < playerPanels.Length; i++) {
+			PlayerPanel playerPanel = playerPanels [i];
+			PlayerController player = playerPanel.player;
+			Debug.Log ("player panel value : " + playerPanel.player);
+
+			if (playerPanel.HasControllerAssigned() && !this.players.Contains(player)) {
+				this.players.Add (player);
+			}
+		}
+
+		// load the first scene
+		// TODO : change the first scene name
+		LoadScene("Release2");
+
+		// instantiate players
+		SceneManager.sceneLoaded += OnSceneLoaded;
 	}
 
 	public void QuitGame() {
