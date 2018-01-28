@@ -25,9 +25,6 @@ public class GameManager : MonoBehaviour {
 		areneScenes [1] = "Arene2";
 
 		players = new List<PlayerController> ();
-
-		// Listen scenes loaded
-		SceneManager.sceneLoaded += OnSceneLoaded;
 	}
 
 	public void LoadScene(string sceneName) {
@@ -38,6 +35,7 @@ public class GameManager : MonoBehaviour {
 		lastLoadedScene = scene.name;
 		foreach (PlayerController player in players) {
 			Instantiate (player);
+			player.Spawn ();
 		}
 		//Debug.Log("The secene is loaded, now we need to instantiate players");
 	}
@@ -56,6 +54,10 @@ public class GameManager : MonoBehaviour {
 				this.players.Add (player);
 			}
 		}
+
+
+		// Listen scenes loaded
+		SceneManager.sceneLoaded += OnSceneLoaded;
 
 		// load the first scene
 		// TODO : change the first scene name

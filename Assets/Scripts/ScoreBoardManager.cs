@@ -16,23 +16,24 @@ public class ScoreBoardManager : MonoBehaviour {
 		}
 
 		players = FindObjectsOfType<PlayerController> ().ToArray ();
-
 		SortPlayersByScore();
 
 		// Display score
 		for(int i = 0; i < players.Length; i++) {
 			int p_score = players[i].GetComponent<PlayerScore> ().GetScore();
-			scoreLabels [i].text = p_score.ToString();
+			scoreLabels [i].text = "Joueur " + i + " : " + p_score + " points";
 			scoreLabels [i].enabled = true;
 		}
-	}
 
-	void Start () {
 		// Instantiate player to their starting positions
 		for(int i = 0; i < players.Length; i++) {
 			players [i].gameObject.transform.position = podiumPositions [i].position;
 			players[i].SetAlive (false);
 		}
+	}
+
+	void Start () {
+		
 	}
 	
 	// Update is called once per frame

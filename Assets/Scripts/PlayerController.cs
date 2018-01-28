@@ -82,8 +82,7 @@ public class PlayerController : MonoBehaviour {
 
         this.shootCooldown = 0f;
         this.spawnPoints = GameObject.FindGameObjectsWithTag("respawnPoint");
-        int randomSpawnPoint = Random.Range(0, spawnPoints.Length);
-        this.gameObject.transform.position = spawnPoints[randomSpawnPoint].transform.position;
+
         DontDestroyOnLoad (gameObject);
     }
 
@@ -195,6 +194,11 @@ public class PlayerController : MonoBehaviour {
     void ActivateControl() {
         this.isAlive = true;
     }
+
+	public void Spawn() {
+		int randomSpawnPoint = Random.Range(0, spawnPoints.Length);
+		this.gameObject.transform.position = spawnPoints[randomSpawnPoint].transform.position;
+	}
 
     void Respawn() {
         ResetTriggerAttack();
