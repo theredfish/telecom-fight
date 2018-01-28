@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour {
 	private int level = 0;
 	private PlayerPanel[] playerPanels;
 	private List<PlayerController> players;
-	private string[] areneScenes;
+	private string[] areneScenes = new string[2];
 	private string lastLoadedScene = "Arene1";
 
 	void Awake() {
