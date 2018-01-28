@@ -3,7 +3,14 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - player1
+  - player2
+  - player3
+  - player4
+  - sword
+  - respawnPoint
+  - Life
   layers:
   - Default
   - TransparentFX
@@ -13,13 +20,13 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Player1
+  - Player2
+  - Player3
+  - Player4
+  - Ground
+  - Bullet
+  - Warp
   - 
   - 
   - 
