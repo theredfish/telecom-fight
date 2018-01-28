@@ -9,7 +9,8 @@ public class GameManager : MonoBehaviour {
 	private int level = 0;
 	private PlayerPanel[] playerPanels;
 	private List<PlayerController> players;
-	private AssetBundle scenes;
+	private string[] areneScenes;
+	private string lastLoadedScene = "Arene1";
 
 	void Awake() {
 		if (instance == null) {
@@ -20,7 +21,13 @@ public class GameManager : MonoBehaviour {
 
 		DontDestroyOnLoad (gameObject);
 
+		areneScenes [0] = "Arene1";
+		areneScenes [1] = "Arene2";
+
 		players = new List<PlayerController> ();
+
+		// Listen scenes loaded
+		SceneManager.sceneLoaded += OnSceneLoaded;
 	}
 
 	public void LoadScene(string sceneName) {
@@ -28,6 +35,7 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void OnSceneLoaded(Scene scene, LoadSceneMode sceneMode) {
+		lastLoadedScene = scene.name;
 		foreach (PlayerController player in players) {
 			Instantiate (player);
 		}
@@ -51,13 +59,20 @@ public class GameManager : MonoBehaviour {
 
 		// load the first scene
 		// TODO : change the first scene name
-		LoadScene("Release2");
+		LoadScene("Arene1");
+	}
 
-		// instantiate players
-		SceneManager.sceneLoaded += OnSceneLoaded;
+	public void Retry() {
+		LoadScene (lastLoadedScene);
+	}
+
+	public void NextLevel() {
+		if (lastLoadedScene == "Arene1") {
+			LoadScene (areneScenes[1]);
+		}
 	}
 
 	public void QuitGame() {
-		// todo
+		Application.Quit();
 	}
 }

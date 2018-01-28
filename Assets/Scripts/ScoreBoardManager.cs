@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 public class ScoreBoardManager : MonoBehaviour {
-	public GameObject[] players;
+	private PlayerController[] players;
 	public Text[] scoreLabels;
 	public Transform[] podiumPositions;
 
@@ -13,6 +14,8 @@ public class ScoreBoardManager : MonoBehaviour {
 		foreach (Text scoreLabel in scoreLabels) {
 			scoreLabel.enabled = false;
 		}
+
+		players = FindObjectsOfType<PlayerController> ().ToArray ();
 
 		SortPlayersByScore();
 
@@ -27,8 +30,8 @@ public class ScoreBoardManager : MonoBehaviour {
 	void Start () {
 		// Instantiate player to their starting positions
 		for(int i = 0; i < players.Length; i++) {
-			GameObject player = Instantiate (players [i], podiumPositions [i].position, Quaternion.identity);
-			player.GetComponent<PlayerController> ().SetAlive (false);
+			players [i].gameObject.transform.position = podiumPositions [i].position;
+			players[i].SetAlive (false);
 		}
 	}
 	
@@ -39,7 +42,7 @@ public class ScoreBoardManager : MonoBehaviour {
 
 	void SortPlayersByScore() {
 		for (int i = 0; i < players.Length-1; i++) {
-			GameObject current_player = players [i];
+			PlayerController current_player = players [i];
 			PlayerScore player_score = current_player.GetComponent<PlayerScore> ();
 			int current_score = player_score.GetScore();
 			int j = i;
