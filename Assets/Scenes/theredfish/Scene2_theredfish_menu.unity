@@ -248,6 +248,7 @@ MonoBehaviour:
   number: 3
   player: {fileID: 114600588089375784, guid: aea5d0419880cdb4a9a277ff3012b6ce, type: 2}
   playerSkin: {fileID: 1269432166}
+  startButton: {fileID: 1962658514}
 --- !u!114 &170272185
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -559,6 +560,7 @@ MonoBehaviour:
   number: 1
   player: {fileID: 114751757303468650, guid: b0df55f4bf51e7c41bf07e3632f3a1ac, type: 2}
   playerSkin: {fileID: 1638857088}
+  startButton: {fileID: 1962658514}
 --- !u!1 &899755428
 GameObject:
   m_ObjectHideFlags: 0
@@ -610,6 +612,7 @@ MonoBehaviour:
   number: 4
   player: {fileID: 114719282093733314, guid: 19874f0a2dcb3df468641ef5a3034c8f, type: 2}
   playerSkin: {fileID: 1644806162}
+  startButton: {fileID: 1962658514}
 --- !u!114 &899755431
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1017,6 +1020,7 @@ GameObject:
   - component: {fileID: 1962658513}
   - component: {fileID: 1962658512}
   - component: {fileID: 1962658511}
+  - component: {fileID: 1962658514}
   m_Layer: 5
   m_Name: GoButton
   m_TagString: Untagged
@@ -1065,7 +1069,7 @@ MonoBehaviour:
     m_NormalColor: {r: 0.66176474, g: 0.4043745, b: 0.37467563, a: 1}
     m_HighlightedColor: {r: 0.8235294, g: 0.29065743, b: 0.29065743, a: 1}
     m_PressedColor: {r: 0.75735295, g: 0.28957614, b: 0.28957614, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0, g: 0, b: 0, a: 0.5019608}
     m_ColorMultiplier: 1.33
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -1081,7 +1085,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1962658512}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1023540592}
+        m_MethodName: StartGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1962658512
@@ -1117,6 +1132,17 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1962658509}
+--- !u!114 &1962658514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1962658509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70b498c950a6f794e8762b8d568dcbab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2036806172
 GameObject:
   m_ObjectHideFlags: 0
@@ -1168,6 +1194,7 @@ MonoBehaviour:
   number: 2
   player: {fileID: 114078884659089614, guid: 1bcc44bb3d9947b4c8601efbe3b5f745, type: 2}
   playerSkin: {fileID: 2118312517}
+  startButton: {fileID: 1962658514}
 --- !u!114 &2036806175
 MonoBehaviour:
   m_ObjectHideFlags: 0
