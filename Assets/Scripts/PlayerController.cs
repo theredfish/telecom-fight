@@ -59,6 +59,8 @@ public class PlayerController : MonoBehaviour {
 
     private float shootCooldown;
 
+    private SmokeController smoke;
+
 
     // Use this for initialization
     void Start () {
@@ -66,9 +68,10 @@ public class PlayerController : MonoBehaviour {
         this.animator = this.gameObject.GetComponent<Animator>();
         this.sword = this.GetComponentsInChildren<BoxCollider2D>()[1];
         this.spriteRenderer = GetComponent<SpriteRenderer>();
-        color = spriteRenderer.color;
-        respawnCooldown = respawnTime;
+        this.color = spriteRenderer.color;
+        this.respawnCooldown = respawnTime;
         this.bulletCharge = this.GetComponentsInChildren<SpriteRenderer>()[1].transform;
+        this.smoke = this.GetComponentInChildren<SmokeController>();
 
         this.scaleBulletMaxX = this.bulletCharge.transform.localScale.x;
         if (!this.sword.tag.Equals ("sword")) {
@@ -192,6 +195,8 @@ public class PlayerController : MonoBehaviour {
 
     void Fire(float axis)
     {
+        smoke.Smoke();
+
         shootCooldown = shootingRate;
         var shotobject = Instantiate(projectile) as GameObject;
         
