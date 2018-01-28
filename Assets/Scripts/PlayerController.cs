@@ -55,12 +55,13 @@ public class PlayerController : MonoBehaviour {
 
     private SpriteRenderer spriteRenderer;
     private Color color;
-    public AudioSource jumpAudio, attackAudio, respawnAudio;
+    public AudioClip jumpAudio, attackAudio, respawnAudio;
 
     private float shootCooldown;
 
     private SmokeController smoke;
 
+    AudioSource audioSource;
 
     // Use this for initialization
     void Start () {
@@ -72,6 +73,7 @@ public class PlayerController : MonoBehaviour {
         this.respawnCooldown = respawnTime;
         this.bulletCharge = this.GetComponentsInChildren<SpriteRenderer>()[1].transform;
         this.smoke = this.GetComponentInChildren<SmokeController>();
+        this.audioSource = this.GetComponent<AudioSource>();
 
         this.scaleBulletMaxX = this.bulletCharge.transform.localScale.x;
         if (!this.sword.tag.Equals ("sword")) {
@@ -80,7 +82,9 @@ public class PlayerController : MonoBehaviour {
 
         this.shootCooldown = 0f;
         this.spawnPoints = GameObject.FindGameObjectsWithTag("respawnPoint");
-		DontDestroyOnLoad (gameObject);
+        int randomSpawnPoint = Random.Range(0, spawnPoints.Length);
+        this.gameObject.transform.position = spawnPoints[randomSpawnPoint].transform.position;
+        DontDestroyOnLoad (gameObject);
     }
 
     private void Update() {
@@ -91,7 +95,9 @@ public class PlayerController : MonoBehaviour {
         {
             doubleJump = true;
 			this.rb2d.AddForce(jump);
-            jumpAudio.Play();
+
+            this.audioSource.clip = jumpAudio;
+            audioSource.Play();
         }
 
         //CoolDown shoot
@@ -147,7 +153,8 @@ public class PlayerController : MonoBehaviour {
                 if (Input.GetButtonDown("AttackP" + id))
                 {
                     this.animator.SetTrigger("attack");
-                    attackAudio.Play();
+                    this.audioSource.clip = attackAudio;
+                    audioSource.Play();
                 }
 
                 if (Input.GetButtonDown("FireP" + id) && CanFire)
@@ -190,8 +197,8 @@ public class PlayerController : MonoBehaviour {
         this.gameObject.transform.position = spawnPoints[randomSpawnPoint].transform.position;
         this.animator.ResetTrigger("dead");
         this.respawnCooldown = respawnTime;
-        respawnAudio.Play();
-
+        this.audioSource.clip = respawnAudio;
+        audioSource.Play();
     }
 
     void Fire(float axis)
@@ -234,7 +241,6 @@ public class PlayerController : MonoBehaviour {
         rb2d.velocity = new Vector2(rb2d.velocity.x, slideSpeed);
         if (Input.GetButtonDown("JumpP" + id))
         {
-            jumpAudio.Play();
             if (facingRight)
             {
                 rb2d.AddForce(new Vector2(-slideForceJump.x, slideForceJump.y) * jumpForce);

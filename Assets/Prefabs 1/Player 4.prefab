@@ -153,6 +153,7 @@ GameObject:
   - component: {fileID: 114943124166645166}
   - component: {fileID: 114388974982027468}
   - component: {fileID: 114663172402178238}
+  - component: {fileID: 82403923886704764}
   m_Layer: 11
   m_Name: Player 4
   m_TagString: Player
@@ -385,6 +386,86 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.76782334, y: 0.6361017}
   m_EdgeRadius: 0
+--- !u!82 &82403923886704764
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1834395531479452}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!95 &95394289512479856
 Animator:
   serializedVersion: 3
@@ -430,7 +511,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13f74b7ca18bb6544a8246ff87d40b17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deathAudio: {fileID: 0}
+  deathAudio: {fileID: 8300000, guid: 641086ce10c0ba248bf0a58dae5ce087, type: 3}
   lifes:
   - {fileID: 1707989288801744}
   - {fileID: 1959652706423314}
@@ -482,10 +563,10 @@ MonoBehaviour:
     m_Bits: 4096
   respawnTime: 1.5
   shootingRate: 5
-  projectile: {fileID: 1122089987946192, guid: 5dc9489d6fe62ec4bbbfb4e765198116, type: 2}
-  jumpAudio: {fileID: 0}
-  attackAudio: {fileID: 0}
-  respawnAudio: {fileID: 0}
+  projectile: {fileID: 1122089987946192, guid: f02e9248c440672468dc1106068bc5df, type: 2}
+  jumpAudio: {fileID: 8300000, guid: 968bccb8a8bb9e747b47ef2fd227017b, type: 3}
+  attackAudio: {fileID: 8300000, guid: 30f28391c34661e4aa657b0fa0fc466e, type: 3}
+  respawnAudio: {fileID: 8300000, guid: 7ff32817194609c458fc296f140225d5, type: 3}
 --- !u!212 &212281984370144144
 SpriteRenderer:
   m_ObjectHideFlags: 1

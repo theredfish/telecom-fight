@@ -251,7 +251,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   number: 3
-  player: {fileID: 114281981828842294, guid: 07555416b4007f04188e4ac158d3f8ed, type: 2}
+  player: {fileID: 114281981828842294, guid: 6eafed9fcdedbc046b55f597d0646a50, type: 2}
   playerSkin: {fileID: 1269432166}
   startButton: {fileID: 1962658514}
 --- !u!114 &170272185
@@ -563,7 +563,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   number: 1
-  player: {fileID: 114281981828842294, guid: 040370fe875853b4c8d1a49342eec9dc, type: 2}
+  player: {fileID: 114281981828842294, guid: e76c19f1835850f4e910c716c1be3c28, type: 2}
   playerSkin: {fileID: 1638857088}
   startButton: {fileID: 1962658514}
 --- !u!1 &899755428
@@ -615,7 +615,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   number: 4
-  player: {fileID: 114943124166645166, guid: 1c46f4dd0adb5c54dad87fe81916a176, type: 2}
+  player: {fileID: 114943124166645166, guid: bd123a953bae21640b4f195c1fe457bf, type: 2}
   playerSkin: {fileID: 1644806162}
   startButton: {fileID: 1962658514}
 --- !u!114 &899755431
@@ -1197,7 +1197,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   number: 2
-  player: {fileID: 114281981828842294, guid: 29341f1af096f2d4aadeed6ea512a26d, type: 2}
+  player: {fileID: 114281981828842294, guid: b5fda51aa2e763b45af9fdbd35ab9137, type: 2}
   playerSkin: {fileID: 2118312517}
   startButton: {fileID: 1962658514}
 --- !u!114 &2036806175

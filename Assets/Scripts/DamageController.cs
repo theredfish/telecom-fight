@@ -7,7 +7,8 @@ public class DamageController : MonoBehaviour {
     private int id;
     private Animator animator;
 
-    public AudioSource deathAudio;
+    public AudioClip deathAudio;
+    private AudioSource audioSource;
 
     private PlayerController playerController;
 
@@ -18,7 +19,7 @@ public class DamageController : MonoBehaviour {
         this.id = this.gameObject.GetComponent<PlayerController>().id;
         this.animator = GetComponentInParent<Animator>();
         this.playerController = this.gameObject.GetComponentInParent<PlayerController>();
-        //GameObject.fin
+        this.audioSource = this.GetComponentInParent<AudioSource>();
     }
 
     void OnTriggerEnter2D(Collider2D coll)
@@ -56,7 +57,8 @@ public class DamageController : MonoBehaviour {
         this.playerController.life--;
         this.lifes[this.playerController.life].SetActive(false);
         this.animator.SetTrigger("dead");
-        deathAudio.Play();
+        this.audioSource.clip = deathAudio;
+        audioSource.Play();
         if(this.playerController.life <= 0)
         {
             FinalDead();
