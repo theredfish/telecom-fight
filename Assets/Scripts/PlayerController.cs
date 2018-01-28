@@ -7,7 +7,11 @@ public class PlayerController : MonoBehaviour {
     private Animator animator;
     private BoxCollider2D sword;
     private GameObject[] spawnPoints;
-	public bool isAlive = true;
+
+    public bool isAlive = true;
+
+    public int life = 3;
+
 	private bool facingRight = true;
 	private bool grounded = false;
     private bool wallCheck = false;

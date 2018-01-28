@@ -14,7 +14,6 @@ public class AudioBeginMatch : MonoBehaviour {
          if (!audioSourceIntro.isPlaying && !startedLoop)
          {
              audioSourceLoop.Play();
-             Debug.Log("Done playing");
              startedLoop = true;
          }
      }

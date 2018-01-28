@@ -5,7 +5,7 @@ AnimationClip:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Dead
+  m_Name: Attack
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -19,20 +19,16 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 21300000, guid: 8b474e974c8425c4d84abbfa5abf6777, type: 3}
-    - time: 0.13333334
-      value: {fileID: 21300000, guid: 06fd22a65fd92a047bac272dab5ba57e, type: 3}
-    - time: 0.3
-      value: {fileID: 21300000, guid: 676fc2af6c653124685027d3eecec534, type: 3}
-    - time: 0.43333334
-      value: {fileID: 21300000, guid: 7e69189435a502e4ebddfe9597b64549, type: 3}
-    - time: 1
-      value: {fileID: 21300000, guid: 7e69189435a502e4ebddfe9597b64549, type: 3}
+      value: {fileID: 21300000, guid: 3d1a387f54cbdf84cbb1b3bb15577084, type: 3}
+    - time: 0.1
+      value: {fileID: 21300000, guid: 51c056b80a9e98b4fad2a8d9416e3017, type: 3}
+    - time: 0.2
+      value: {fileID: 21300000, guid: 298facae619c98f4b83edf8720058203, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
     script: {fileID: 0}
-  m_SampleRate: 60
+  m_SampleRate: 100
   m_WrapMode: 0
   m_Bounds:
     m_Center: {x: 0, y: 0, z: 0}
@@ -47,17 +43,15 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: 21300000, guid: 8b474e974c8425c4d84abbfa5abf6777, type: 3}
-    - {fileID: 21300000, guid: 06fd22a65fd92a047bac272dab5ba57e, type: 3}
-    - {fileID: 21300000, guid: 676fc2af6c653124685027d3eecec534, type: 3}
-    - {fileID: 21300000, guid: 7e69189435a502e4ebddfe9597b64549, type: 3}
-    - {fileID: 21300000, guid: 7e69189435a502e4ebddfe9597b64549, type: 3}
+    - {fileID: 21300000, guid: 3d1a387f54cbdf84cbb1b3bb15577084, type: 3}
+    - {fileID: 21300000, guid: 51c056b80a9e98b4fad2a8d9416e3017, type: 3}
+    - {fileID: 21300000, guid: 298facae619c98f4b83edf8720058203, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 1.0166667
+    m_StopTime: 0.21000001
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -79,28 +73,14 @@ AnimationClip:
   m_GenerateMotionCurves: 0
   m_Events:
   - time: 0
+    functionName: Attack
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.2
     functionName: StopAttack
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 0
-    functionName: DesactivateControl
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 1
-    functionName: ActivateControl
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 1
-    functionName: Respawn
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

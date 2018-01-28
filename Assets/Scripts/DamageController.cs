@@ -11,11 +11,14 @@ public class DamageController : MonoBehaviour {
 
     private PlayerController playerController;
 
+    public GameObject[] lifes;
+
     private void Start()
     {
         this.id = this.gameObject.GetComponent<PlayerController>().id;
         this.animator = GetComponentInParent<Animator>();
         this.playerController = this.gameObject.GetComponentInParent<PlayerController>();
+        //GameObject.fin
     }
 
     void OnTriggerEnter2D(Collider2D coll)
@@ -49,8 +52,23 @@ public class DamageController : MonoBehaviour {
 
     public void Dead(int ennemyID)
     {
-        Debug.Log("Player " + id + " kill by Player " + ennemyID);
+        //Debug.Log("Player " + ennemyID  + " kill Player " + id);
+        this.playerController.life--;
+        this.lifes[this.playerController.life].SetActive(false);
         this.animator.SetTrigger("dead");
         deathAudio.Play();
+        if(this.playerController.life <= 0)
+        {
+            FinalDead();
+        }
+    }
+
+    public void FinalDead()
+    {
+        GameController gameController = GameObject.FindObjectOfType<GameController>();
+        if(gameController != null)
+        {
+            gameController.FinalDead(this.gameObject);
+        }
     }
 }
