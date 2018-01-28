@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour {
 	private float groundRadius = 0.2f;
     private bool doubleJump = false;
     private float scaleBulletMaxX;
+    private float respawnCooldown;
 	[Header("Player ID (tmp must be set by the gameManager)")]
 	public int id;
 
@@ -40,6 +41,7 @@ public class PlayerController : MonoBehaviour {
 
     public static float MAXSPEEDY = -30f;
 
+    public float respawnTime = 1.5f;
     [Header("Projectile")]
     public float shootingRate = 2f;
 
@@ -47,6 +49,8 @@ public class PlayerController : MonoBehaviour {
 
     private Transform bulletCharge;
 
+    private SpriteRenderer spriteRenderer;
+    private Color color;
     public AudioSource jumpAudio, attackAudio, respawnAudio;
 
     private float shootCooldown;
@@ -57,7 +61,9 @@ public class PlayerController : MonoBehaviour {
 		this.rb2d = this.gameObject.GetComponent<Rigidbody2D>();
         this.animator = this.gameObject.GetComponent<Animator>();
         this.sword = this.GetComponentsInChildren<BoxCollider2D>()[1];
-
+        this.spriteRenderer = GetComponent<SpriteRenderer>();
+        color = spriteRenderer.color;
+        respawnCooldown = respawnTime;
         this.bulletCharge = this.GetComponentsInChildren<SpriteRenderer>()[1].transform;
 
         this.scaleBulletMaxX = this.bulletCharge.transform.localScale.x;
@@ -87,6 +93,13 @@ public class PlayerController : MonoBehaviour {
             Vector3 v3 = this.bulletCharge.transform.localScale;
             v3.x = shootCooldown < 0.0f ?  scaleBulletMaxX : (1.0f - (shootCooldown / shootingRate)) * scaleBulletMaxX;
             this.bulletCharge.transform.localScale = v3;
+        }
+
+        if (respawnCooldown>0)
+        {
+            respawnCooldown -= Time.deltaTime;
+            float percentage = 1.0f - (respawnCooldown/respawnTime);
+            spriteRenderer.color = respawnTime < 0.0f ? color : new Color(percentage*color.r,percentage*color.g,percentage*color.b,percentage*color.a);
         }
     }
 
@@ -121,19 +134,21 @@ public class PlayerController : MonoBehaviour {
                 Flip();
             }
 
-
-            if (Input.GetButtonDown("AttackP" + id))
+            if (respawnCooldown<0)
             {
-                this.animator.SetTrigger("attack");
-                attackAudio.Play();
-            }
+                if (Input.GetButtonDown("AttackP" + id))
+                {
+                    this.animator.SetTrigger("attack");
+                    attackAudio.Play();
+                }
 
-            if (Input.GetButtonDown("FireP" + id) && CanFire)
-            {
-                Fire(Input.GetAxis("VerticalP" + id));
-                Vector3 v3 = this.bulletCharge.transform.localScale;
-                v3.x = 0.0f;
-                this.bulletCharge.transform.localScale = v3;
+                if (Input.GetButtonDown("FireP" + id) && CanFire)
+                {
+                    Fire(Input.GetAxis("VerticalP" + id));
+                    Vector3 v3 = this.bulletCharge.transform.localScale;
+                    v3.x = 0.0f;
+                    this.bulletCharge.transform.localScale = v3;
+                }
             }
         }
     }
@@ -166,6 +181,7 @@ public class PlayerController : MonoBehaviour {
         int randomSpawnPoint = Random.Range(0, spawnPoints.Length);
         this.gameObject.transform.position = spawnPoints[randomSpawnPoint].transform.position;
         this.animator.ResetTrigger("dead");
+        this.respawnCooldown = respawnTime;
         respawnAudio.Play();
 
     }
@@ -225,4 +241,9 @@ public class PlayerController : MonoBehaviour {
 	public void SetAlive(bool heartbit) {
 		this.isAlive = heartbit;
 	}
+
+    public bool isImmortal()
+    {
+        return respawnCooldown > 0;
+    }
 }
