@@ -4,7 +4,7 @@
 ![Telecom Fight image](doc/Display.png)
 
 # I want to play
-- Download the archive [here (soon... game is uploading)]() and unzip
+- Download the archive [here](https://ggj.s3.amazonaws.com/games/2018/01/98989/exec/lhMWc/TelecomFightImage.zip) and unzip
 - Launch the game, and select your character (space for keyboard and "A" for Xbox controllers)
 - Use your mouse to click on "Press Start"
 - Play :)
